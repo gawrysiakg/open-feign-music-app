@@ -29,6 +29,7 @@ public class AppApplication {
     public void makeRequestToShawnMendesEndpoint(){
         ShawnMendesResponse response = shawnMendesClient.makeSearchRequest("shawnmendes", 3);
         System.out.println(response);
+        response.results().stream().map(s->s.trackName()).forEach(System.out::println);
 
 
     }
