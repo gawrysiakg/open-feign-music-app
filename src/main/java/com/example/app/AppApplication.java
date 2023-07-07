@@ -27,7 +27,7 @@ public class AppApplication {
 
     @EventListener(ApplicationStartedEvent.class)
     public void makeRequestToShawnMendesEndpoint(){
-        String response = shawnMendesClient.makeSearchRequest("shawnmendes", 1);
+        ShawnMendesResponse response = shawnMendesClient.makeSearchRequest("shawnmendes", 3);
         System.out.println(response);
 
 
