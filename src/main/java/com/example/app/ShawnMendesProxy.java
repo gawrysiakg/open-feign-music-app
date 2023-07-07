@@ -11,5 +11,5 @@ public interface ShawnMendesProxy {
 
 //	https://itunes.apple.com/search?term=shawnmendes&limit=1
     @GetMapping("/search")
-    String makeSearchRequest(@RequestParam("term") String term, @RequestParam("limit") Integer limit);
+    ShawnMendesResponse makeSearchRequest(@RequestParam("term") String term, @RequestParam("limit") Integer limit);
 }
