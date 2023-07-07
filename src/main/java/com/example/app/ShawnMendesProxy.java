@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ShawnMendesProxy {
 
 //	https://itunes.apple.com/search?term=shawnmendes&limit=1
-    @GetMapping("/search")
+    @GetMapping("/search2")
     ShawnMendesResponse makeSearchRequest(@RequestParam("term") String term, @RequestParam("limit") Integer limit);
 }
