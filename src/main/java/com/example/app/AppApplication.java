@@ -1,18 +1,26 @@
 package com.example.app;
 
 import feign.FeignException;
+
+
 import feign.RetryableException;
+
+
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.event.EventListener;
+
 
 @SpringBootApplication
 @EnableFeignClients
+@Log4j2
 public class AppApplication {
+
+
 
     @Autowired
     ShawnMendesProxy shawnMendesClient;
@@ -37,13 +45,13 @@ public class AppApplication {
             response.results().stream().map(s -> s.trackName()).forEach(System.out::println);
 
         } catch (FeignException.FeignClientException exception) {
-            System.out.println("Feign client exception "  + exception.status()); //getMessage print body message
+            log.error("Feign client exception "  + exception.status()); //getMessage print body message
         } catch (FeignException.FeignServerException serverException) {
-            System.out.println("Feign server exception " + serverException.getMessage() + " " + serverException.status());
+            log.error("Feign server exception " + serverException.getMessage() + " " + serverException.status());
         } catch (RetryableException retryableException) {
-            System.out.println("Retryable exception " + retryableException.getMessage() + " " + retryableException.status());
+            log.error("Retryable exception " + retryableException.getMessage() + " " + retryableException.status());
         } catch (FeignException feignException) {
-            System.out.println("Feign exception " + feignException.getMessage() + " " + feignException.status());
+            log.error("Feign exception " + feignException.getMessage() + " " + feignException.status());
         }
     }
 
