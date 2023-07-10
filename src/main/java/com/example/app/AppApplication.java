@@ -1,11 +1,13 @@
 package com.example.app;
 
+import com.example.app.itunes.ItunesProxy;
+import com.example.app.itunes.ItunesResponse;
+import com.example.app.sampleshawnmendesserver.SampleServerShawnMendesResponse;
+import com.example.app.sampleshawnmendesserver.SampleShawnMendesRequest;
+import com.example.app.sampleshawnmendesserver.SampleShawnMendesServerProxy;
 import feign.FeignException;
 
-
 import feign.RetryableException;
-
-
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +25,9 @@ public class AppApplication {
 
 
     @Autowired
-    ShawnMendesProxy shawnMendesClient;
+    ItunesProxy itunesClient;
+    @Autowired
+    SampleShawnMendesServerProxy sampleShawnMendesServerClient;
     //Spring będzie automatycznie tworzył instancję klasy implementującej interfejs ShawnMendesProxy
     // i wstrzykiwał ją do pola shawnMendesClient
     // shawnMendesClient jest instancją klasy implementującej interfejs ShawnMendesProxy,
@@ -37,12 +41,17 @@ public class AppApplication {
 
 
     @EventListener(ApplicationStartedEvent.class)
-    public void makeRequestToShawnMendesEndpoint() {
+    public void run() {
         try {
 
-            ShawnMendesResponse response = shawnMendesClient.makeSearchRequest("shawnmendes", 3);
-            System.out.println(response);
-            response.results().stream().map(s -> s.trackName()).forEach(System.out::println);
+//          ItunesResponse response = itunesClient.makeSearchRequest("shawnmendes", 3);
+            SampleServerShawnMendesResponse response = sampleShawnMendesServerClient.fetchAllSongs("01");
+            log.info(response);
+
+            SampleServerShawnMendesResponse responseAddSong = sampleShawnMendesServerClient.addSong(new SampleShawnMendesRequest("songByFeign"));
+            log.info(responseAddSong);
+
+
 
         } catch (FeignException.FeignClientException exception) {
             log.error("Feign client exception "  + exception.status()); //getMessage print body message
