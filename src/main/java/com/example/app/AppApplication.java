@@ -3,6 +3,7 @@ package com.example.app;
 import com.example.app.itunes.ItunesProxy;
 import com.example.app.itunes.ItunesResponse;
 import com.example.app.sampleshawnmendesserver.SampleServerShawnMendesResponse;
+import com.example.app.sampleshawnmendesserver.SampleShawnMendesRequest;
 import com.example.app.sampleshawnmendesserver.SampleShawnMendesServerProxy;
 import feign.FeignException;
 
@@ -44,9 +45,13 @@ public class AppApplication {
         try {
 
 //          ItunesResponse response = itunesClient.makeSearchRequest("shawnmendes", 3);
-            SampleServerShawnMendesResponse response = sampleShawnMendesServerClient.fetchAllSongs();
-            //System.out.println(response);
+            SampleServerShawnMendesResponse response = sampleShawnMendesServerClient.fetchAllSongs("01");
             log.info(response);
+
+            SampleServerShawnMendesResponse responseAddSong = sampleShawnMendesServerClient.addSong(new SampleShawnMendesRequest("songByFeign"));
+            log.info(responseAddSong);
+
+
 
         } catch (FeignException.FeignClientException exception) {
             log.error("Feign client exception "  + exception.status()); //getMessage print body message
