@@ -2,6 +2,8 @@ package com.example.app;
 
 import com.example.app.itunes.ItunesProxy;
 import com.example.app.itunes.ItunesResponse;
+import com.example.app.sampleshawnmendesserver.SampleServerShawnMendesResponse;
+import com.example.app.sampleshawnmendesserver.SampleShawnMendesServerProxy;
 import feign.FeignException;
 
 import feign.RetryableException;
@@ -23,6 +25,8 @@ public class AppApplication {
 
     @Autowired
     ItunesProxy itunesClient;
+    @Autowired
+    SampleShawnMendesServerProxy sampleShawnMendesServerClient;
     //Spring będzie automatycznie tworzył instancję klasy implementującej interfejs ShawnMendesProxy
     // i wstrzykiwał ją do pola shawnMendesClient
     // shawnMendesClient jest instancją klasy implementującej interfejs ShawnMendesProxy,
@@ -39,9 +43,10 @@ public class AppApplication {
     public void run() {
         try {
 
-            ItunesResponse response = itunesClient.makeSearchRequest("shawnmendes", 3);
-            System.out.println(response);
-            response.results().stream().map(s -> s.trackName()).forEach(System.out::println);
+//          ItunesResponse response = itunesClient.makeSearchRequest("shawnmendes", 3);
+            SampleServerShawnMendesResponse response = sampleShawnMendesServerClient.fetchAllSongs();
+            //System.out.println(response);
+            log.info(response);
 
         } catch (FeignException.FeignClientException exception) {
             log.error("Feign client exception "  + exception.status()); //getMessage print body message
