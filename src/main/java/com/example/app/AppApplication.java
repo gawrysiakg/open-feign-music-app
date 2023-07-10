@@ -1,11 +1,10 @@
 package com.example.app;
 
+import com.example.app.itunes.ItunesProxy;
+import com.example.app.itunes.ItunesResponse;
 import feign.FeignException;
 
-
 import feign.RetryableException;
-
-
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -40,7 +39,7 @@ public class AppApplication {
     public void run() {
         try {
 
-            ShawnMendesResponse response = itunesClient.makeSearchRequest("shawnmendes", 3);
+            ItunesResponse response = itunesClient.makeSearchRequest("shawnmendes", 3);
             System.out.println(response);
             response.results().stream().map(s -> s.trackName()).forEach(System.out::println);
 

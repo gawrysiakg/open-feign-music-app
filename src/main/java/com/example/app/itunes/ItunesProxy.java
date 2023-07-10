@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.itunes;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,5 +10,5 @@ public interface ItunesProxy {
 
 //	https://itunes.apple.com/search?term=shawnmendes&limit=1
     @GetMapping("/search")
-    ShawnMendesResponse makeSearchRequest(@RequestParam("term") String term, @RequestParam("limit") Integer limit);
+    ItunesResponse makeSearchRequest(@RequestParam("term") String term, @RequestParam("limit") Integer limit);
 }
