@@ -23,7 +23,7 @@ public class AppApplication {
 
 
     @Autowired
-    ShawnMendesProxy shawnMendesClient;
+    ItunesProxy itunesClient;
     //Spring będzie automatycznie tworzył instancję klasy implementującej interfejs ShawnMendesProxy
     // i wstrzykiwał ją do pola shawnMendesClient
     // shawnMendesClient jest instancją klasy implementującej interfejs ShawnMendesProxy,
@@ -37,10 +37,10 @@ public class AppApplication {
 
 
     @EventListener(ApplicationStartedEvent.class)
-    public void makeRequestToShawnMendesEndpoint() {
+    public void run() {
         try {
 
-            ShawnMendesResponse response = shawnMendesClient.makeSearchRequest("shawnmendes", 3);
+            ShawnMendesResponse response = itunesClient.makeSearchRequest("shawnmendes", 3);
             System.out.println(response);
             response.results().stream().map(s -> s.trackName()).forEach(System.out::println);
 
