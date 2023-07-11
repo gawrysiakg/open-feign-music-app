@@ -45,12 +45,13 @@ public class AppApplication {
         try {
 
 //          ItunesResponse response = itunesClient.makeSearchRequest("shawnmendes", 3);
-            SampleServerShawnMendesResponse response = sampleShawnMendesServerClient.fetchAllSongs("01");
-            log.info(response);
+            log.info(sampleShawnMendesServerClient.fetchAllSongs("01"));
+            log.info(sampleShawnMendesServerClient.addSong(new SampleShawnMendesRequest("MySongByFeign")));
+            log.info(sampleShawnMendesServerClient.fetchAllSongs("01"));
 
-            SampleServerShawnMendesResponse responseAddSong = sampleShawnMendesServerClient.addSong(new SampleShawnMendesRequest("songByFeign"));
-            log.info(responseAddSong);
-
+           // sampleShawnMendesServerClient.deleteByPathVariableId("0");
+            sampleShawnMendesServerClient.deleteByIdUsingQueryParam("0");
+            log.info(sampleShawnMendesServerClient.fetchAllSongs("01"));
 
 
         } catch (FeignException.FeignClientException exception) {
