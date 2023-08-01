@@ -6,4 +6,4 @@ https://github.com/gawrysiakg/songify
 
 see the SongifyAPI Swagger screen:
 
-![swagger](src/main/resources/swagger-ui-songs rest controller.png)
+![swagger](src/main/resources/swagger.png)
